@@ -1,11 +1,10 @@
 <?php
 
-
 require_once('./line_class.php');
 require_once('./unirest-php-master/src/Unirest.php');
 
-$channelAccessToken = 'YOUR-CHANNEL-ACCESS-TOKEN'; //sesuaikan 
-$channelSecret = 'YOUR-CHANNEL-SECRET-CODE';//sesuaikan
+$channelAccessToken = 'lrQ6WSZ9K2TOPbDRzsqx2vN7QWCgA7B6FkBcxfnM6PuOBYQDB3oD/wCjAXax8niPmwAr8mkXef4h02RyLQYUaLhUEWFegp+h6R8AaoxtIfM4CfFOobNqnTyoFeGY7Gqn4bjVGlfjDZ+J91GUuokpIQdB04t89/1O/w1cDnyilFU='; //sesuaikan 
+$channelSecret = '7a84953aa557a61bfe757fe788f9fa8c';//sesuaikan
 
 $client = new LINEBotTiny($channelAccessToken, $channelSecret);
 
@@ -57,8 +56,9 @@ function cuaca($keyword) {
 
 //show menu, saat join dan command /menu
 if ($type == 'join' || $command == '/help') {
-    $text = "list command:\n
-    	     /zoomlink = zoom link";
+    $text = "Halo Jing!\n
+    	     command:\n
+	     1. /zoomlink = zoom link";
     $balas = array(
         'replyToken' => $replyToken,
         'messages' => array(
@@ -82,7 +82,23 @@ if ($type == 'join' || $command == '/zoomlink') {
     );
 }
 
-else if($message['type']=='sticker')
+//pesan bergambar
+if($message['type']=='text') {
+	    if ($command == '/cuaca') {
+
+        $result = cuaca($options);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => $result
+                )
+            )
+        );
+    }
+
+}else if($message['type']=='sticker')
 {	
 	$balas = array(
 							'replyToken' => $replyToken,														
