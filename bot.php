@@ -3,8 +3,8 @@
 require_once('./line_class.php');
 require_once('./unirest-php-master/src/Unirest.php');
 
-$channelAccessToken = 'lrQ6WSZ9K2TOPbDRzsqx2vN7QWCgA7B6FkBcxfnM6PuOBYQDB3oD/wCjAXax8niPmwAr8mkXef4h02RyLQYUaLhUEWFegp+h6R8AaoxtIfM4CfFOobNqnTyoFeGY7Gqn4bjVGlfjDZ+J91GUuokpIQdB04t89/1O/w1cDnyilFU='; //sesuaikan 
-$channelSecret = '7a84953aa557a61bfe757fe788f9fa8c';//sesuaikan
+$channelAccessToken = 'lrQ6WSZ9K2TOPbDRzsqx2vN7QWCgA7B6FkBcxfnM6PuOBYQDB3oD/wCjAXax8niPmwAr8mkXef4h02RyLQYUaLhUEWFegp+h6R8AaoxtIfM4CfFOobNqnTyoFeGY7Gqn4bjVGlfjDZ+J91GUuokpIQdB04t89/1O/w1cDnyilFU=';
+$channelSecret = '7a84953aa557a61bfe757fe788f9fa8c';
 
 $client = new LINEBotTiny($channelAccessToken, $channelSecret);
 
@@ -30,35 +30,15 @@ if (count($pesan_datang) > 2) {
     }
 }
 
-#-------------------------[Function]-------------------------#
-function cuaca($keyword) {
-    $uri = "http://api.openweathermap.org/data/2.5/weather?q=" . $keyword . ",ID&units=metric&appid=e172c2f3a3c620591582ab5242e0e6c4";
-
-    $response = Unirest\Request::get("$uri");
-
-    $json = json_decode($response->raw_body, true);
-    $result = "Halo Kak ^_^ Ini ada Ramalan Cuaca Untuk Daerah ";
-	$result .= $json['name'];
-	$result .= " Dan Sekitarnya";
-	$result .= "\n\nCuaca : ";
-	$result .= $json['weather']['0']['main'];
-	$result .= "\nDeskripsi : ";
-	$result .= $json['weather']['0']['description'];
-    return $result;
-}
-#-------------------------[Function]-------------------------#
-
 # require_once('./src/function/search-1.php');
 # require_once('./src/function/download.php');
 # require_once('./src/function/random.php');
 # require_once('./src/function/search-2.php');
 # require_once('./src/function/hard.php');
 
-//show menu, saat join dan command /menu
+
 if ($type == 'join' || $command == '/help') {
-    $text = "Halo Jing!\n
-    	     command:\n
-	     1. /zoomlink = zoom link";
+    $text = "Halo Jing!\ncommand:\n1. /zoomlink = zoom link";
     $balas = array(
         'replyToken' => $replyToken,
         'messages' => array(
@@ -81,36 +61,17 @@ if ($type == 'join' || $command == '/zoomlink') {
         )
     );
 }
-
-//pesan bergambar
-if($message['type']=='text') {
-	    if ($command == '/cuaca') {
-
-        $result = cuaca($options);
-        $balas = array(
-            'replyToken' => $replyToken,
-            'messages' => array(
-                array(
-                    'type' => 'text',
-                    'text' => $result
-                )
-            )
-        );
-    }
-
-}else if($message['type']=='sticker')
-{	
+else if($message['type']=='sticker'){	
 	$balas = array(
-							'replyToken' => $replyToken,														
-							'messages' => array(
-								array(
-										'type' => 'text',									
-										'text' => 'Makasih Kak Stikernya ^_^'										
+		'replyToken' => $replyToken,														
+		'messages' => array(
+			array(
+				'type' => 'text',									
+				'text' => 'Makasih Kak Stikernya ^_^'										
 									
-									)
-							)
-						);
-						
+			)
+		)
+	);						
 }
 if (isset($balas)) {
     $result = json_encode($balas);
