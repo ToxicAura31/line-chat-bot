@@ -61,8 +61,20 @@ function cuaca($keyword) {
 # require_once('./src/function/hard.php');
 
 //show menu, saat join dan command /menu
-if ($type == 'join' || $command == '/menu') {
-    $text = "Halo Kak ^_^\nAku Bot Prediksi Cuaca, Kamu bisa mengetahui prediksi cuaca di daerah kamu sesuai dengan sumber BMKG";
+if ($type == 'join' || $command == '/help') {
+    $text = "/zoomlink = zoom link";
+    $balas = array(
+        'replyToken' => $replyToken,
+        'messages' => array(
+            array(
+                'type' => 'text',
+                'text' => $text
+            )
+        )
+    );
+}
+if ($type == 'join' || $command == '/zoomlink') {
+    $text = "https://zoom.us/j/98435942294?pwd=WDhRYXBmWWZnYkNMT1MvTGlPVldaUT09";
     $balas = array(
         'replyToken' => $replyToken,
         'messages' => array(
@@ -74,23 +86,7 @@ if ($type == 'join' || $command == '/menu') {
     );
 }
 
-//pesan bergambar
-if($message['type']=='text') {
-	    if ($command == '/cuaca') {
-
-        $result = cuaca($options);
-        $balas = array(
-            'replyToken' => $replyToken,
-            'messages' => array(
-                array(
-                    'type' => 'text',
-                    'text' => $result
-                )
-            )
-        );
-    }
-
-}else if($message['type']=='sticker')
+else if($message['type']=='sticker')
 {	
 	$balas = array(
 							'replyToken' => $replyToken,														
