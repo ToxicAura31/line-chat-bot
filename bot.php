@@ -62,7 +62,8 @@ function cuaca($keyword) {
 
 //show menu, saat join dan command /menu
 if ($type == 'join' || $command == '/help') {
-    $text = "/zoomlink = zoom link";
+    $text = "list command:\n
+    	     /zoomlink = zoom link";
     $balas = array(
         'replyToken' => $replyToken,
         'messages' => array(
